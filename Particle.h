@@ -32,8 +32,11 @@ public:
     void update();
     //リバウンド
     void bouceOffWalls();
+    void bouceOffWalls(float radius);
     //描画
     void draw();
+    
+    void fadeout(float fade);
     
     //反発する力
     void addRepulsionForce(float x,float y,float radius,float scale);

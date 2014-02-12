@@ -51,6 +51,9 @@ void Particle::update(){
     updateForce();
     updatePos();
 }
+void Particle::fadeout(float fade){
+    force.set(force.x*fade,force.y*fade);
+}
 
 void Particle::bouceOffWalls(){
     bool bDampedOnCollision=false;
@@ -85,6 +88,41 @@ void Particle::bouceOffWalls(){
         velocity*=0.3;
     }
 }
+
+void Particle::bouceOffWalls(float _radius){
+    bool bDampedOnCollision=false;
+    bool bDidICollide=false;
+    
+    float minx=0+_radius;
+    float miny=0+_radius;
+    float maxx=ofGetWidth()-_radius;
+    float maxy=ofGetHeight()-radius;
+    
+    if (position.x > maxx) {
+        position.x = maxx;
+        velocity.x*=-1;
+        bDidICollide=true;
+    }else if (position.x < minx){
+        position.x=minx;
+        velocity.x*=-1;
+        bDidICollide=true;
+    }
+    
+    if (position.y > maxy) {
+        position.y = maxy;
+        velocity.y*=-1;
+        bDidICollide=true;
+    }else if (position.y < miny){
+        position.y=minx;
+        velocity.y*=-1;
+        bDidICollide=true;
+    }
+    
+    if (bDidICollide==true&&bDampedOnCollision==true) {
+        velocity*=0.3;
+    }
+}
+
 
 void Particle::draw(){
     ofCircle(position, radius);
